@@ -30,18 +30,18 @@ pub enum Heuristic {
 
 #[derive(Debug, PartialEq, Eq)]
 pub enum AlignmentStatus {
-    StatusSuccessful = wfa2::WF_STATUS_SUCCESSFUL as isize,
-    StatusDropped = wfa2::WF_STATUS_UNFEASIBLE as isize,
-    StatusMaxScoreReached = wfa2::WF_STATUS_MAX_SCORE_REACHED as isize,
+    StatusSuccessful = wfa2::WF_STATUS_ALG_COMPLETED as isize,
+    StatusDropped = wfa2::WF_STATUS_UNATTAINABLE as isize,
+    StatusMaxScoreReached = wfa2::WF_STATUS_MAX_STEPS_REACHED as isize,
     StatusOOM = wfa2::WF_STATUS_OOM as isize,
 }
 
 impl From<i32> for AlignmentStatus {
     fn from(value: i32) -> Self {
         match value {
-            x if x == wfa2::WF_STATUS_SUCCESSFUL as i32 => AlignmentStatus::StatusSuccessful,
-            wfa2::WF_STATUS_UNFEASIBLE => AlignmentStatus::StatusDropped,
-            wfa2::WF_STATUS_MAX_SCORE_REACHED => AlignmentStatus::StatusMaxScoreReached,
+            x if x == wfa2::WF_STATUS_ALG_COMPLETED as i32 => AlignmentStatus::StatusSuccessful,
+            wfa2::WF_STATUS_UNATTAINABLE => AlignmentStatus::StatusDropped,
+            wfa2::WF_STATUS_MAX_STEPS_REACHED => AlignmentStatus::StatusMaxScoreReached,
             wfa2::WF_STATUS_OOM => AlignmentStatus::StatusOOM,
             _ => panic!("Unknown alignment status: {}", value),
         }

@@ -21,6 +21,7 @@ fn main() {
         .cflag("-DEXTRA_FLAGS=\"-ftree-vectorize -msse2 -mfpmath=sse -ftree-vectorizer-verbose=5 -march=native\"")
         .build();
     println!("cargo:rustc-link-search=native={}/lib", out_dir.display());
+    println!("cargo:rustc-link-search=native={}/lib64", out_dir.display());
     println!("cargo:rustc-link-lib=static=wfa2");
 
     let ignored_macros = IgnoreMacros(
